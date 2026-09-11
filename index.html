@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buzón CUC Escucha</title>
+ 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+ 
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+ 
+        header {
+            background: #003b71;
+            color: white;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+ 
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+ 
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: #f5c400;
+            color: #003b71;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+ 
+        .logo h1 {
+            font-size: 22px;
+        }
+ 
+        .logo span {
+            font-size: 12px;
+            opacity: .8;
+        }
+ 
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 14px;
+        }
+ 
+        nav a:hover {
+            color: #f5c400;
+        }
+ 
+        .hero {
+            background: linear-gradient(135deg, #003b71, #0065a8);
+            color: white;
+            padding: 70px 8%;
+            text-align: center;
+        }
+ 
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+ 
+        .hero h2 span {
+            color: #f5c400;
+        }
+ 
+        .hero p {
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.7;
+            font-size: 17px;
+        }
+ 
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: -35px auto 60px;
+            position: relative;
+        }
+ 
+        .form-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .12);
+        }
+ 
+        .form-card h3 {
+            color: #003b71;
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+ 
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+ 
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+ 
+        .form-group {
+            margin-bottom: 20px;
+        }
+ 
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+ 
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: .3s;
+        }
+ 
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #0065a8;
+            box-shadow: 0 0 0 3px rgba(0, 101, 168, .1);
+        }
+ 
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+ 
+        .anonymous {
+            background: #eef6fc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+ 
+        .anonymous input {
+            width: auto;
+        }
+ 
+        .anonymous label {
+            margin: 0;
+            font-weight: normal;
+        }
+ 
+        .button-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+ 
+        button {
+            background: #f5c400;
+            color: #003b71;
+            border: none;
+            padding: 15px 45px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .3s;
+        }
+ 
+        button:hover {
+            background: #dcae00;
+            transform: translateY(-2px);
+        }
+ 
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+ 
+        .info-card {
+            background: white;
+            padding: 30px 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, .06);
+        }
+ 
+        .info-icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+ 
+        .info-card h4 {
+            color: #003b71;
+            margin-bottom: 10px;
+        }
+ 
+        .info-card p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+ 
+        .success-message {
+            display: none;
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+ 
+        footer {
+            background: #002b52;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+ 
+        footer p {
+            font-size: 13px;
+            opacity: .8;
+        }
+ 
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+ 
+            nav a {
+                margin: 0 8px;
+            }
+ 
+            .hero {
+                padding: 50px 5%;
+            }
+ 
+            .hero h2 {
+                font-size: 32px;
+            }
+ 
+            .container {
+                width: 94%;
+            }
+ 
+            .form-card {
+                padding: 25px;
+            }
+ 
+            .form-row,
+            .info-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+ 
+<body>
+ 
+    <!-- ENCABEZADO -->
+    <header>
+        <div class="logo">
+            <div class="logo-icon">💬</div>
+            <div>
+                <h1>Buzón CUC Escucha</h1>
+                <span>Tu voz, nuestras acciones</span>
+            </div>
+        </div>
+ 
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#formulario">Sugerencias</a>
+            <a href="#nosotros">¿Cómo funciona?</a>
+        </nav>
+    </header>
+ 
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <h2>Tu opinión <span>nos importa</span></h2>
+ 
+        <p>
+            Este es un espacio creado para que los estudiantes puedan
+            compartir sus ideas, sugerencias y propuestas para contribuir
+            al mejoramiento de nuestra comunidad universitaria.
+        </p>
+    </section>
+ 
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container" id="formulario">
+ 
+        <div class="form-card">
+ 
+            <h3>Comparte tu sugerencia</h3>
+ 
+            <p class="subtitle">
+                Completa el siguiente formulario. Tu participación ayuda
+                a construir una mejor experiencia universitaria.
+            </p>
+ 
+            <div class="success-message" id="successMessage">
+                ✓ ¡Gracias por compartir tu sugerencia!
+                Tu opinión ha sido registrada correctamente.
+            </div>
+ 
+            <form id="suggestionForm">
+ 
+                <!-- DATOS -->
+                <div class="form-row">
+ 
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input
+                            type="text"
+                            id="nombre"
+                            name="nombre"
+                            placeholder="Ingresa tu nombre"
+                        >
+                    </div>
+ 
+                    <div class="form-group">
+                        <label for="correo">Correo electrónico</label>
+                        <input
+                            type="email"
+                            id="correo"
+                            name="correo"
+                            placeholder="correo@ejemplo.com"
+                        >
+                    </div>
+ 
+                </div>
+ 
+                <!-- ANÓNIMO -->
+                <div class="anonymous">
+                    <input
+                        type="checkbox"
+                        id="anonimo"
+                        name="anonimo"
+                    >
+ 
+                    <label for="anonimo">
+                        Deseo enviar mi sugerencia de manera anónima.
+                    </label>
+                </div>
+ 
+                <!-- CATEGORÍA -->
+                <div class="form-group">
+ 
+                    <label for="categoria">
+                        Categoría de la sugerencia
+                    </label>
+ 
+                    <select id="categoria" name="categoria" required>
+                        <option value="">
+                            Selecciona una categoría
+                        </option>
+ 
+                        <option value="academica">
+                            Académica
+                        </option>
+ 
+                        <option value="infraestructura">
+                            Infraestructura
+                        </option>
+ 
+                        <option value="bienestar">
+                            Bienestar universitario
+                        </option>
+ 
+                        <option value="tecnologia">
+                            Tecnología
+                        </option>
+ 
+                        <option value="servicios">
+                            Servicios
+                        </option>
+ 
+                        <option value="otra">
+                            Otra
+                        </option>
+                    </select>
+ 
+                </div>
+ 
+                <!-- TÍTULO -->
+                <div class="form-group">
+ 
+                    <label for="titulo">
+                        Título de la sugerencia
+                    </label>
+ 
+                    <input
+                        type="text"
+                        id="titulo"
+                        name="titulo"
+                        placeholder="Ejemplo: Mejoras en los espacios de estudio"
+                        required
+                    >
+ 
+                </div>
+ 
+                <!-- SUGERENCIA -->
+                <div class="form-group">
+ 
+                    <label for="mensaje">
+                        Cuéntanos tu sugerencia
+                    </label>
+ 
+                    <textarea
+                        id="mensaje"
+                        name="mensaje"
+                        placeholder="Escribe aquí tu idea, propuesta o sugerencia..."
+                        required
+                    ></textarea>
+ 
+                </div>
+ 
+                <!-- BOTÓN -->
+                <div class="button-container">
+ 
+                    <button type="submit">
+                        Enviar sugerencia
+                    </button>
+ 
+                </div>
+ 
+            </form>
+ 
+        </div>
+ 
+        <!-- TARJETAS INFORMATIVAS -->
+        <section class="info-section" id="nosotros">
+ 
+            <div class="info-card">
+                <div class="info-icon">💡</div>
+ 
+                <h4>Propón</h4>
+ 
+                <p>
+                    Comparte ideas y propuestas que puedan mejorar
+                    la experiencia de los estudiantes.
+                </p>
+            </div>
+ 
+            <div class="info-card">
+                <div class="info-icon">🔒</div>
+ 
+                <h4>Participa</h4>
+ 
+                <p>
+                    Puedes registrar tu sugerencia de manera
+                    identificada o anónima.
+                </p>
+            </div>
+ 
+            <div class="info-card">
+                <div class="info-icon">🤝</div>
+ 
+                <h4>Construyamos juntos</h4>
+ 
+                <p>
+                    Tus aportes contribuyen a generar cambios
+                    positivos en nuestra comunidad universitaria.
+                </p>
+            </div>
+ 
+        </section>
+ 
+    </main>
+ 
+    <!-- FOOTER -->
+    <footer>
+ 
+        <p>
+            © 2026 Buzón CUC Escucha — Todos los derechos reservados.
+        </p>
+ 
+        <p>
+            Espacio de participación estudiantil
+        </p>
+ 
+    </footer>
+ 
+ 
+    <!-- JAVASCRIPT -->
+    <script>
+ 
+        const form = document.getElementById("suggestionForm");
+        const successMessage = document.getElementById("successMessage");
+ 
+        form.addEventListener("submit", function(event) {
+ 
+            event.preventDefault();
+ 
+            successMessage.style.display = "block";
+ 
+            form.reset();
+ 
+            window.scrollTo({
+                top: document.getElementById("formulario").offsetTop - 20,
+                behavior: "smooth"
+            });
+ 
+        });
+ 
+ 
+        // Si el estudiante selecciona "anónimo",
+        // se deshabilitan los campos personales.
+ 
+        const anonimo = document.getElementById("anonimo");
+        const nombre = document.getElementById("nombre");
+        const correo = document.getElementById("correo");
+ 
+        anonimo.addEventListener("change", function() {
+ 
+            if (this.checked) {
+ 
+                nombre.value = "";
+                correo.value = "";
+ 
+                nombre.disabled = true;
+                correo.disabled = true;
+ 
+                nombre.placeholder = "Envío anónimo";
+                correo.placeholder = "Envío anónimo";
+ 
+            } else {
+ 
+                nombre.disabled = false;
+                correo.disabled = false;
+ 
+                nombre.placeholder = "Ingresa tu nombre";
+                correo.placeholder = "correo@ejemplo.com";
+            }
+ 
+        });
+ 
+    </script>
+ 
+</body>
+</html>
+ 
